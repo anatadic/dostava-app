@@ -15,7 +15,7 @@ public class Dostavljac extends Korisnik implements Serializable {
 
     public Dostavljac(){}
 
-    public Dostavljac(String korisnickoIme, String lozinka, String ime, String prezime, String pol, Date datumRodjenja, String uloga) {
+    public Dostavljac(String korisnickoIme, String lozinka, String ime, String prezime, PolEnum pol, Date datumRodjenja, UlogaEnum uloga) {
         super(korisnickoIme, lozinka, ime, prezime, pol, datumRodjenja, uloga);
     }
 

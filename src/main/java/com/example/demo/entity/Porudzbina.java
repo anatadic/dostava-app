@@ -1,16 +1,20 @@
 package com.example.demo.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 public class Porudzbina implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long uuid; //uuid generator
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID uuid;
     @OneToMany(mappedBy = "porudzbina", cascade = CascadeType.ALL)
     private Set<Artikal> artikli = new HashSet<>(); //MANYTOMANY
     //posebna klasa stavkaPorudzbine koja ima artikal i kolicina
@@ -19,7 +23,9 @@ public class Porudzbina implements Serializable {
     private Restoran restoran;
     private Date datumIVreme;
     private double cena;
-    private String status; //enumeracija
+
+    @Enumerated(EnumType.STRING)
+    private StatusPorudzbineEnum status;
 
     @ManyToOne
     @JoinColumn(name="kupac_id")
@@ -31,7 +37,7 @@ public class Porudzbina implements Serializable {
 
     public Porudzbina(){}
 
-    public Porudzbina(Restoran restoran, Date datumIVreme, double cena, Kupac kupac, String status) {
+    public Porudzbina(Restoran restoran, Date datumIVreme, double cena, Kupac kupac, StatusPorudzbineEnum status) {
         this.uuid = uuid;
         this.restoran = restoran;
         this.datumIVreme = datumIVreme;
@@ -80,11 +86,11 @@ public class Porudzbina implements Serializable {
         this.kupac = kupac;
     }
 
-    public String getStatus() {
+    public StatusPorudzbineEnum getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusPorudzbineEnum status) {
         this.status = status;
     }
 

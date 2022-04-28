@@ -14,13 +14,18 @@ public class Korisnik implements Serializable {
     private String lozinka;
     private String ime;
     private String prezime;
-    private String pol; //enum
+
+    @Enumerated(EnumType.STRING)
+    private PolEnum pol;
+
     private Date datumRodjenja;
-    private String uloga; //enum
+
+    @Enumerated(EnumType.STRING)
+    private UlogaEnum uloga;
 
     public Korisnik(){}
 
-    public Korisnik(String korisnickoIme, String lozinka, String ime, String prezime, String pol, Date datumRodjenja, String uloga) {
+    public Korisnik(String korisnickoIme, String lozinka, String ime, String prezime, PolEnum pol, Date datumRodjenja, UlogaEnum uloga) {
         this.korisnickoIme = korisnickoIme;
         this.lozinka = lozinka;
         this.ime = ime;
@@ -62,11 +67,11 @@ public class Korisnik implements Serializable {
         this.prezime = prezime;
     }
 
-    public String getPol() {
+    public PolEnum getPol() {
         return pol;
     }
 
-    public void setPol(String pol) {
+    public void setPol(PolEnum pol) {
         this.pol = pol;
     }
 
@@ -78,11 +83,11 @@ public class Korisnik implements Serializable {
         this.datumRodjenja = datumRodjenja;
     }
 
-    public String getUloga() {
+    public UlogaEnum getUloga() {
         return uloga;
     }
 
-    public void setUloga(String uloga) {
+    public void setUloga(UlogaEnum uloga) {
         this.uloga = uloga;
     }
 }

@@ -10,7 +10,10 @@ public class Artikal implements Serializable {
     private Long id;
     private String naziv;
     private double cena;
-    private String tip; //enum
+
+    @Enumerated(EnumType.STRING)
+    private TipArtiklaEnum tip;
+
     private double kolicina;
     private String opis;
 
@@ -42,11 +45,11 @@ public class Artikal implements Serializable {
         this.cena = cena;
     }
 
-    public String getTip() {
+    public TipArtiklaEnum getTip() {
         return tip;
     }
 
-    public void setTip(String tip) {
+    public void setTip(TipArtiklaEnum tip) {
         this.tip = tip;
     }
 

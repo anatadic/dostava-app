@@ -1,9 +1,6 @@
 package com.example.demo.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
@@ -11,11 +8,14 @@ public class TipKupca implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String ime;
+
+    @Enumerated(EnumType.STRING)
+    private TipKupcaEnum ime;
+
     private int popust;
     private int trazeniBrojBodova;
 
-    public TipKupca(String ime, int popust, int trazeniBrojBodova) {
+    public TipKupca(TipKupcaEnum ime, int popust, int trazeniBrojBodova) {
         this.ime = ime;
         this.popust = popust;
         this.trazeniBrojBodova = trazeniBrojBodova;
@@ -23,11 +23,11 @@ public class TipKupca implements Serializable {
 
     public TipKupca(){}
 
-    public String getIme() {
+    public TipKupcaEnum getIme() {
         return ime;
     }
 
-    public void setIme(String ime) {
+    public void setIme(TipKupcaEnum ime) {
         this.ime = ime;
     }
 

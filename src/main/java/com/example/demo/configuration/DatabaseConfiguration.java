@@ -59,7 +59,7 @@ public class DatabaseConfiguration {
         Artikal artikal = new Artikal();
         artikal.setNaziv("UDON XL");
         artikal.setCena(890);
-        artikal.setTip("Jelo");
+        artikal.setTip(TipArtiklaEnum.JELO);
         artikal.setKolicina(3);
         artikal.setOpis("Nudle sa povrcem i piletinom");
         artikal.setRestoran(restoran);
@@ -68,26 +68,26 @@ public class DatabaseConfiguration {
         Artikal artikal2 = new Artikal();
         artikal2.setNaziv("Can Cue");
         artikal2.setCena(420);
-        artikal2.setTip("Jelo");
+        artikal2.setTip(TipArtiklaEnum.JELO);
         artikal2.setKolicina(2);
         artikal2.setOpis("Ljuto zacinjena salata sa tofu sirom");
         artikal2.setRestoran(restoran);
         artikalRepository.save(artikal2);
 
         TipKupca tipKupca = new TipKupca();
-        tipKupca.setIme("Bronzani");
+        tipKupca.setIme(TipKupcaEnum.BRONZANI);
         tipKupca.setPopust(5);
         tipKupca.setTrazeniBrojBodova(200);
         tipKupcaRepository.save(tipKupca);
 
         TipKupca tipKupca2 = new TipKupca();
-        tipKupca2.setIme("Srebrni");
+        tipKupca2.setIme(TipKupcaEnum.SREBRNI);
         tipKupca2.setPopust(10);
         tipKupca2.setTrazeniBrojBodova(400);
         tipKupcaRepository.save(tipKupca2);
 
         TipKupca tipKupca3 = new TipKupca();
-        tipKupca3.setIme("Zlatni");
+        tipKupca3.setIme(TipKupcaEnum.ZLATNI);
         tipKupca3.setPopust(15);
         tipKupca3.setTrazeniBrojBodova(600);
         tipKupcaRepository.save(tipKupca3);
@@ -95,24 +95,24 @@ public class DatabaseConfiguration {
         Menadzer menadzer = new Menadzer();
         menadzer.setIme("Jovan");
         menadzer.setPrezime("Petrovic");
-        menadzer.setPol("M");
+        menadzer.setPol(PolEnum.MUSKI);
         Date menadzerDatumRodjenja = new GregorianCalendar(1988,10,13).getTime();
         menadzer.setDatumRodjenja(menadzerDatumRodjenja);
         menadzer.setKorisnickoIme("jovanp");
         menadzer.setLozinka("jovanp1206");
-        menadzer.setUloga("MENADZER");
+        menadzer.setUloga(UlogaEnum.MENADZER);
         menadzer.setRestoran(restoran);
         menadzerRepository.save(menadzer);
 
         Kupac kupac = new Kupac();
         kupac.setIme("Mara");
         kupac.setPrezime("Jovanovic");
-        kupac.setPol("Z");
+        kupac.setPol(PolEnum.ZENSKI);
         Date kupacDatumRodjenja = new GregorianCalendar(1986,8,7).getTime();
         kupac.setDatumRodjenja(kupacDatumRodjenja);
         kupac.setKorisnickoIme("mara13");
         kupac.setLozinka("marajela");
-        kupac.setUloga("KUPAC");
+        kupac.setUloga(UlogaEnum.KUPAC);
         kupac.setTipKupca(tipKupca);
         kupac.setBrojSakupljenihBodova(219);
         kupacRepository.save(kupac);
@@ -120,17 +120,17 @@ public class DatabaseConfiguration {
         Dostavljac dostavljac = new Dostavljac();
         dostavljac.setIme("Marko");
         dostavljac.setPrezime("Ilic");
-        dostavljac.setPol("M");
+        dostavljac.setPol(PolEnum.MUSKI);
         Date datumRodjenja = new GregorianCalendar(2000,11,17).getTime();
         dostavljac.setDatumRodjenja(datumRodjenja);
         dostavljac.setKorisnickoIme("ilici9");
         dostavljac.setLozinka("porodicailic67");
-        dostavljac.setUloga("DOSTAVLJAC");
+        dostavljac.setUloga(UlogaEnum.DOSTAVLJAC);
         dostavljacRepository.save(dostavljac);
 
         Porudzbina porudzbina = new Porudzbina();
         porudzbina.setCena(artikal.getCena() + artikal2.getCena());
-        porudzbina.setStatus("U pripremi");
+        porudzbina.setStatus(StatusPorudzbineEnum.U_PRIPREMI);
         porudzbina.setDatumIVreme(new Date());
         porudzbina.setKupac(kupac);
         porudzbina.setRestoran(restoran);
