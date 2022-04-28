@@ -8,10 +8,13 @@ public class Lokacija implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "duzina")
     private double geografskaDuzina;
+
     @Column(name = "sirina")
     private double geografskaSirina;
+
     private String adresa;
 
     public Lokacija(double geografskaDuzina, double geografskaSirina, String adresa) {

@@ -8,23 +8,21 @@ public class Artikal implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String naziv;
+
     private double cena;
 
     @Enumerated(EnumType.STRING)
     private TipArtiklaEnum tip;
 
     private double kolicina;
+
     private String opis;
 
     @ManyToOne
     @JoinColumn(name="restoran_id")
     private Restoran restoran;
-
-    @ManyToOne
-    @JoinColumn(name="porudzbina_id")
-    private Porudzbina porudzbina; //da ne bude bidirekciona
-
 
     public Artikal() {
     }
@@ -77,11 +75,4 @@ public class Artikal implements Serializable {
         this.restoran = restoran;
     }
 
-    public Porudzbina getPorudzbina() {
-        return porudzbina;
-    }
-
-    public void setPorudzbina(Porudzbina porudzbina) {
-        this.porudzbina = porudzbina;
-    }
 }

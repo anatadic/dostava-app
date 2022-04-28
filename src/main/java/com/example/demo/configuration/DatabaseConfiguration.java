@@ -128,6 +128,10 @@ public class DatabaseConfiguration {
         dostavljac.setUloga(UlogaEnum.DOSTAVLJAC);
         dostavljacRepository.save(dostavljac);
 
+        Set<Artikal> artikli = new HashSet<>();
+        artikli.add(artikal);
+        artikli.add(artikal2);
+
         Porudzbina porudzbina = new Porudzbina();
         porudzbina.setCena(artikal.getCena() + artikal2.getCena());
         porudzbina.setStatus(StatusPorudzbineEnum.U_PRIPREMI);
@@ -135,17 +139,13 @@ public class DatabaseConfiguration {
         porudzbina.setKupac(kupac);
         porudzbina.setRestoran(restoran);
         porudzbina.setDostavljac(dostavljac);
+        porudzbina.setArtikli(artikli);
         porudzbinaRepository.save(porudzbina);
 
         Set<Porudzbina> svePorudzbine = new HashSet<>();
         svePorudzbine.add(porudzbina);
         kupac.setSvePorudzbine(svePorudzbine);
         kupacRepository.save(kupac);
-
-        artikal.setPorudzbina(porudzbina);
-        artikal2.setPorudzbina(porudzbina);
-        artikalRepository.save(artikal);
-        artikalRepository.save(artikal2);
 
         Komentar komentar = new Komentar();
         komentar.setKupac(kupac);

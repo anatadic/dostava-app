@@ -13,6 +13,7 @@ public class TipKupca implements Serializable {
     private TipKupcaEnum ime;
 
     private int popust;
+
     private int trazeniBrojBodova;
 
     public TipKupca(TipKupcaEnum ime, int popust, int trazeniBrojBodova) {

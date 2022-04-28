@@ -9,10 +9,14 @@ public class Korisnik implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "korisnickoIme", unique = true)
     private String korisnickoIme;
+
     private String lozinka;
+
     private String ime;
+
     private String prezime;
 
     @Enumerated(EnumType.STRING)

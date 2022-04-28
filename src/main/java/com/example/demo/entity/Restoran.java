@@ -10,10 +10,14 @@ public class Restoran implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String naziv;
+
     private String tipRestorana;
+
     @OneToMany(mappedBy = "restoran", cascade = CascadeType.ALL)
     private Set<Artikal> artikli = new HashSet<>();
+
     @OneToOne
     @JoinColumn(name = "lokacija_id")
     private Lokacija lokacija;

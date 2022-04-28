@@ -8,13 +8,17 @@ public class Komentar implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @OneToOne
     @JoinColumn(name = "kupac_id")
     private Kupac kupac;
+
     @OneToOne
     @JoinColumn(name = "restoran_id")
     private Restoran restoran;
+
     private String tekst;
+
     private int ocena;
 
     public Komentar() {}
