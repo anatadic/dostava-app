@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -16,6 +18,7 @@ public class Restoran implements Serializable {
     private String tipRestorana;
 
     @OneToMany(mappedBy = "restoran", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Artikal> artikli = new HashSet<>();
 
     @OneToOne

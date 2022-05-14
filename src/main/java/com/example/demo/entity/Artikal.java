@@ -27,6 +27,10 @@ public class Artikal implements Serializable {
     public Artikal() {
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getNaziv() {
         return naziv;
     }

@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
@@ -11,6 +13,7 @@ public class Dostavljac extends Korisnik implements Serializable {
     private Long id;
 
     @OneToMany(mappedBy = "dostavljac", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Set<Porudzbina> porudzbine = new HashSet<>();
 
     public Dostavljac(){}

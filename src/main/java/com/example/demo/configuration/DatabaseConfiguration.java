@@ -41,6 +41,9 @@ public class DatabaseConfiguration {
     @Autowired
     private KomentarRepository komentarRepository;
 
+    @Autowired
+    private  KorisnikRepository korisnikRepository;
+
     @Bean
     public boolean instantiate(){
 
@@ -91,6 +94,17 @@ public class DatabaseConfiguration {
         tipKupca3.setPopust(15);
         tipKupca3.setTrazeniBrojBodova(600);
         tipKupcaRepository.save(tipKupca3);
+
+        Korisnik korisnik = new Korisnik();
+        korisnik.setIme("Ivan");
+        korisnik.setPrezime("Jovanic");
+        korisnik.setPol(PolEnum.MUSKI);
+        Date korisnikDatumRodjenja = new GregorianCalendar(1990,11,19).getTime();
+        korisnik.setDatumRodjenja(korisnikDatumRodjenja);
+        korisnik.setKorisnickoIme("ivke");
+        korisnik.setLozinka("ivke1990");
+        korisnik.setUloga(UlogaEnum.ADMIN);
+        korisnikRepository.save(korisnik);
 
         Menadzer menadzer = new Menadzer();
         menadzer.setIme("Jovan");
