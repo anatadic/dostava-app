@@ -13,6 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,7 +31,7 @@ public class KorisnikRestController {
 
         if (registerDto.getKorisnickoIme().isEmpty() || registerDto.getLozinka().isEmpty()
                 || registerDto.getIme().isEmpty() || registerDto.getPrezime().isEmpty() ||
-                registerDto.getUloga().isEmpty() || registerDto.getPol().isEmpty()) {
+                registerDto.getPol().isEmpty()) {
             return new ResponseEntity("Neispravno uneti podaci", HttpStatus.BAD_REQUEST);
         }
 
@@ -36,14 +39,31 @@ public class KorisnikRestController {
             return new ResponseEntity("Korisnicko ime vec postoji", HttpStatus.BAD_REQUEST);
         }
 
+        String uloga;
+
+        if(registerDto.getUloga() == null) {
+            uloga = UlogaEnum.KUPAC.toString();
+        } else {
+            uloga = registerDto.getUloga();
+        }
+
         Korisnik korisnik = new Korisnik();
         korisnik.setKorisnickoIme(registerDto.getKorisnickoIme());
         korisnik.setIme(registerDto.getIme());
         korisnik.setPrezime(registerDto.getPrezime());
         korisnik.setLozinka(registerDto.getLozinka());
-        korisnik.setPol(PolEnum.valueOf(registerDto.getPol()));
-        korisnik.setDatumRodjenja(new Date(registerDto.getDatumRodjenja()));
-        korisnik.setUloga(UlogaEnum.valueOf(registerDto.getUloga()));
+        korisnik.setPol(PolEnum.valueOf(registerDto.getPol().toUpperCase()));
+
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        Date datumRodjenja = null;
+        try {
+            datumRodjenja = df.parse(registerDto.getDatumRodjenja());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        korisnik.setDatumRodjenja(datumRodjenja);
+        korisnik.setUloga(UlogaEnum.valueOf(uloga));
 
         korisnikService.registerKorisnik(korisnik);
 
@@ -101,7 +121,6 @@ public class KorisnikRestController {
         editKorisnik.setDatumRodjenja(korisnik.getDatumRodjenja());
         editKorisnik.setLozinka(korisnik.getLozinka());
         editKorisnik.setPol(korisnik.getPol());
-        editKorisnik.setUloga(korisnik.getUloga());
         this.korisnikService.save(editKorisnik);
         return "Uspesno sacuvan korisnik!";
     }
