@@ -17,6 +17,8 @@ public class Restoran implements Serializable {
 
     private String tipRestorana;
 
+    private RestoranStatusEnum status;
+
     @OneToMany(mappedBy = "restoran", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Artikal> artikli = new HashSet<>();
@@ -25,13 +27,16 @@ public class Restoran implements Serializable {
     @JoinColumn(name = "lokacija_id")
     private Lokacija lokacija;
 
-    public Restoran(String naziv, String tipRestorana, Lokacija lokacija) {
+    public Restoran(String naziv, String tipRestorana, RestoranStatusEnum status, Set<Artikal> artikli, Lokacija lokacija) {
         this.naziv = naziv;
         this.tipRestorana = tipRestorana;
+        this.status = status;
+        this.artikli = artikli;
         this.lokacija = lokacija;
     }
 
-    public Restoran() {}
+    public Restoran() {
+    }
 
     public String getNaziv() {
         return naziv;
@@ -63,5 +68,13 @@ public class Restoran implements Serializable {
 
     public void setArtikli(Set<Artikal> artikli) {
         this.artikli = artikli;
+    }
+
+    public RestoranStatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(RestoranStatusEnum status) {
+        this.status = status;
     }
 }
