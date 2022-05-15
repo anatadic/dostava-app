@@ -9,10 +9,7 @@ import com.example.demo.service.RestoranService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
@@ -35,7 +32,7 @@ public class RestoranRestController {
     @PostMapping("/api/restoran/create")
     public ResponseEntity<String> createRestoran(@RequestBody RestoranDto restoranDto) {
 
-        if (restoranDto.getNaziv().isEmpty() || restoranDto.getTip().isEmpty() || restoranDto.getLokacijaId() == null) {
+        if (restoranDto.getNaziv().isEmpty() || restoranDto.getTipRestorana().isEmpty()) {
             return new ResponseEntity("Neispravno uneti podaci", HttpStatus.BAD_REQUEST);
         }
 
@@ -52,15 +49,17 @@ public class RestoranRestController {
     }
 
     @GetMapping("/api/restorani/{id}")
-    public ResponseEntity<RestoranDto> getById(@PathParam("id") Long id) {
+    public ResponseEntity<RestoranDto> getById(@PathVariable("id") Long id) {
 
         Restoran restoran = restoranService.findOne(id);
         List<Komentar> komentari = komentarService.getAllByRestoranId(id);
 
         RestoranDto restoranDto = new RestoranDto();
         restoranDto.setNaziv(restoran.getNaziv());
-        restoranDto.setTip(restoran.getTipRestorana());
-        restoranDto.setStatus(restoran.getStatus().toString());
+        restoranDto.setTipRestorana(restoran.getTipRestorana());
+        if(restoranDto.getStatus() != null) {
+            restoranDto.setStatus(restoran.getStatus().toString());
+        }
         restoranDto.setLokacijaId(restoran.getLokacija().getId());
         restoranDto.setArtikli(restoran.getArtikli());
         restoranDto.setKomentari(komentari);
@@ -74,20 +73,20 @@ public class RestoranRestController {
         return ResponseEntity.ok(restorani);
     }
 
-    @GetMapping("/api/restorani/{naziv}")
-    public ResponseEntity<Restoran> getByNaziv(@PathParam("naziv") String naziv) {
+    @GetMapping("/api/restorani/naziv/{naziv}")
+    public ResponseEntity<Restoran> getByNaziv(@PathVariable String naziv) {
         Restoran restoran = restoranService.getByNaziv(naziv);
         return ResponseEntity.ok(restoran);
     }
 
-    @GetMapping("/api/restorani/{lokacija}")
-    public ResponseEntity<Restoran> getByNaziv(@PathParam("lokacija") Long lokacijaId) {
+    @GetMapping("/api/restorani/lokacija/{lokacijaId}")
+    public ResponseEntity<Restoran> getByNaziv(@PathVariable("lokacijaId") Long lokacijaId) {
         Restoran restoran = restoranService.getByLokacija(lokacijaId);
         return ResponseEntity.ok(restoran);
     }
 
-    @GetMapping("/api/restorani/{tip}")
-    public ResponseEntity<List<Restoran>> getByTip(@PathParam("tip") String tip) {
+    @GetMapping("/api/restorani/tip/{tip}")
+    public ResponseEntity<List<Restoran>> getByTip(@PathVariable("tip") String tip) {
         List<Restoran> restorani = restoranService.getByTip(tip);
         return ResponseEntity.ok(restorani);
     }
