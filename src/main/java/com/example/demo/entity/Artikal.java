@@ -13,6 +13,8 @@ public class Artikal implements Serializable {
 
     private double cena;
 
+    private String slika;
+
     @Enumerated(EnumType.STRING)
     private TipArtiklaEnum tip;
 
@@ -21,7 +23,7 @@ public class Artikal implements Serializable {
     private String opis;
 
     @ManyToOne
-    @JoinColumn(name="restoran_id")
+    @JoinColumn(name = "restoran_id")
     private Restoran restoran;
 
     public Artikal() {
@@ -79,4 +81,11 @@ public class Artikal implements Serializable {
         this.restoran = restoran;
     }
 
+    public String getSlika() {
+        return slika;
+    }
+
+    public void setSlika(String slika) {
+        this.slika = slika;
+    }
 }

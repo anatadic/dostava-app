@@ -11,20 +11,20 @@ public class ArtikalController {
     @Autowired
     private ArtikalService artikalService;
 
-    @PostMapping("/api/create-artikal")
+    @PostMapping("/api/artikal/create")
     public String createArtikal(@RequestBody Artikal artikal) {
         this.artikalService.saveArtikal(artikal);
         return "Uspesno sacuvan artikal!";
     }
 
-    @DeleteMapping("/api/delete-artikal/{id}")
+    @DeleteMapping("/api/artikal/delete/{id}")
     public String deleteArtikal(@PathVariable(name = "id") Long id) {
         Artikal artikal = artikalService.findOne(id);
         this.artikalService.deleteArtikal(artikal);
         return "Uspesno obrisan artikal!";
     }
 
-    @PostMapping("/api/edit-artikal")
+    @PutMapping("/api/artikal/edit")
     public String editArtikal(@RequestBody Artikal artikal) {
         Artikal editArtikal = artikalService.findOne(artikal.getId());
         editArtikal.setCena(artikal.getCena());
@@ -36,6 +36,4 @@ public class ArtikalController {
         this.artikalService.saveArtikal(editArtikal);
         return "Uspesno izmenjen artikal!";
     }
-
-
 }

@@ -23,7 +23,16 @@ public class Lokacija implements Serializable {
         this.adresa = adresa;
     }
 
-    public Lokacija(){}
+    public Lokacija() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public double getGeografskaDuzina() {
         return geografskaDuzina;

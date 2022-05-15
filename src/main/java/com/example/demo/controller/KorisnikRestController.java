@@ -41,7 +41,7 @@ public class KorisnikRestController {
 
         String uloga;
 
-        if(registerDto.getUloga() == null) {
+        if (registerDto.getUloga() == null) {
             uloga = UlogaEnum.KUPAC.toString();
         } else {
             uloga = registerDto.getUloga();
@@ -113,7 +113,7 @@ public class KorisnikRestController {
         return ResponseEntity.ok(dtos);
     }
 
-    @PostMapping("/api/edit-korisnik")
+    @PutMapping("/api/korisnik/edit")
     public String editKorisnik(@RequestBody Korisnik korisnik) {
         Korisnik editKorisnik = korisnikService.getByKorisnickoIme(korisnik.getKorisnickoIme());
         editKorisnik.setIme(korisnik.getIme());
