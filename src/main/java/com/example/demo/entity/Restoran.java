@@ -38,6 +38,14 @@ public class Restoran implements Serializable {
     public Restoran() {
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getNaziv() {
         return naziv;
     }
