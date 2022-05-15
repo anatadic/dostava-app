@@ -30,7 +30,7 @@ public class RestoranService {
         return restoranRepository.findAll();
     }
 
-    public List<Restoran> getByNaziv(String naziv) {
+    public Restoran getByNaziv(String naziv) {
         return restoranRepository.getByNaziv(naziv);
     }
 
@@ -38,7 +38,7 @@ public class RestoranService {
         return restoranRepository.getByTipRestorana(tip);
     }
 
-    public List<Restoran> getByLokacija(Long lokacijaId) {
+    public Restoran getByLokacija(Long lokacijaId) {
         return restoranRepository.getByLokacijaId(lokacijaId);
     }
 

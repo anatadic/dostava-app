@@ -8,9 +8,9 @@ import java.util.List;
 
 @Repository
 public interface RestoranRepository extends JpaRepository<Restoran, Long> {
-    List<Restoran> getByNaziv(String naziv);
+    Restoran getByNaziv(String naziv);
 
     List<Restoran> getByTipRestorana(String tipRestorana);
 
-    List<Restoran> getByLokacijaId(Long lokacijaId);
+    Restoran getByLokacijaId(Long lokacijaId);
 }
