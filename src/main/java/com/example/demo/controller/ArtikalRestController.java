@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-public class ArtikalController {
+public class ArtikalRestController {
 
     @Autowired
     private ArtikalService artikalService;
