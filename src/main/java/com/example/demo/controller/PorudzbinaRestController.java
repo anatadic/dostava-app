@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 public class PorudzbinaRestController {
@@ -38,7 +39,13 @@ public class PorudzbinaRestController {
 
     @GetMapping("/api/porudzbine/status/{status}")
     public ResponseEntity<List<Porudzbina>> getPorudzbineByKupac(@PathVariable(name = "status") String status) {
-        List<Porudzbina> porudzbine = porudzbinaService.getPorudzbineByStatus(status);
+        List<Porudzbina> porudzbine = porudzbinaService.getPorudzbineByStatus(StatusPorudzbineEnum.valueOf(status.toUpperCase()));
+        return ResponseEntity.ok(porudzbine);
+    }
+
+    @GetMapping("/api/porudzbine/dostavljac/{id}")
+    public ResponseEntity<List<Porudzbina>> getPorudzbineByDostavljac(@PathVariable(name = "id") Long id) {
+        List<Porudzbina> porudzbine = porudzbinaService.getPorudzbineByDostavljac(id);
         return ResponseEntity.ok(porudzbine);
     }
 
@@ -63,7 +70,8 @@ public class PorudzbinaRestController {
 
     @PutMapping("/api/porudzbina/edit")
     public String editPorudzbina(@RequestBody PorudzbinaDto porudzbinaDto) {
-        Porudzbina porudzbina = porudzbinaService.findOne(porudzbinaDto.getId());
+        UUID uuid = UUID.fromString(porudzbinaDto.getId());
+        Porudzbina porudzbina = porudzbinaService.findOne(uuid);
         porudzbina.setStatus(StatusPorudzbineEnum.valueOf(porudzbinaDto.getStatus().toUpperCase()));
 
         if (porudzbinaDto.getDostavljacId() != null) {

@@ -1,12 +1,14 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Porudzbina;
+import com.example.demo.entity.StatusPorudzbineEnum;
 import com.example.demo.repository.PorudzbinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PorudzbinaService {
@@ -18,8 +20,8 @@ public class PorudzbinaService {
         return porudzbinaRepository.getByRestoranId(restoranId);
     }
 
-    public Porudzbina findOne(Long id) {
-        Optional<Porudzbina> porudzbina = porudzbinaRepository.findById(id);
+    public Porudzbina findOne(UUID id) {
+        Optional<Porudzbina> porudzbina = porudzbinaRepository.findByUuid(id);
         if (porudzbina.isPresent())
             return porudzbina.get();
 
@@ -30,8 +32,12 @@ public class PorudzbinaService {
         return porudzbinaRepository.getByKupacId(kupacId);
     }
 
-    public List<Porudzbina> getPorudzbineByStatus(String status) {
+    public List<Porudzbina> getPorudzbineByStatus(StatusPorudzbineEnum status) {
         return porudzbinaRepository.getByStatus(status);
+    }
+
+    public List<Porudzbina> getPorudzbineByDostavljac(Long dostavljacId) {
+        return porudzbinaRepository.getByDostavljacId(dostavljacId);
     }
 
     public Porudzbina savePorudzbina(Porudzbina porudzbina) {

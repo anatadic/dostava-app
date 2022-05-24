@@ -90,7 +90,6 @@ public class KorisnikRestController {
     @GetMapping("/api/korisnici/{id}")
     public Korisnik getKorisnik(@PathVariable(name = "id") Long id, HttpSession session) {
         Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
-        session.invalidate();
         return korisnikService.findOne(id);
     }
 

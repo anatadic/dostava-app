@@ -56,6 +56,7 @@ public class DatabaseConfiguration {
         Restoran restoran = new Restoran();
         restoran.setNaziv("Ming");
         restoran.setTipRestorana("Kineski restoran");
+        restoran.setStatus(RestoranStatusEnum.RADI);
         restoran.setLokacija(lokacija);
         restoranRepository.save(restoran);
 

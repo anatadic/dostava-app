@@ -2,14 +2,13 @@ package com.example.demo.dto;
 
 import com.example.demo.entity.*;
 
-import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 public class PorudzbinaDto {
 
-    private Long id;
+    private String id;
 
     private Set<Artikal> artikli = new HashSet<>();
 
@@ -38,7 +37,7 @@ public class PorudzbinaDto {
         this.dostavljacId = dostavljacId;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 

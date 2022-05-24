@@ -38,6 +38,7 @@ public class RestoranRestController {
 
         Restoran restoran = new Restoran();
         restoran.setNaziv(restoranDto.getNaziv());
+        restoran.setStatus(RestoranStatusEnum.valueOf(restoranDto.getStatus().toUpperCase()));
         restoran.setTipRestorana(restoran.getTipRestorana());
 
         Lokacija lokacija = lokacijaService.getLokacijaById(restoranDto.getLokacijaId());
