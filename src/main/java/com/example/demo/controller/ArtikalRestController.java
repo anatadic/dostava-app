@@ -49,12 +49,13 @@ public class ArtikalRestController {
 
         for (Porudzbina porudzbina : svePorudzbine) {
             Set<Artikal> artikli = (porudzbina.getArtikli());
-            for(Artikal artikal: artikli) {
-                if(artikal.getId() == id) {
-                    artikli.remove(artikal);
+            Set<Artikal> updatedArtikli = (artikli);
+            for (Artikal artikal: artikli) {
+                if (artikal.getId() == id) {
+                    updatedArtikli.remove(artikal);
                 }
             }
-            porudzbina.setArtikli(artikli);
+            porudzbina.setArtikli(updatedArtikli);
             porudzbinaService.savePorudzbina(porudzbina);
         }
 
