@@ -11,6 +11,7 @@ import com.example.demo.service.RestoranService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -49,7 +50,7 @@ public class ArtikalRestController {
 
         for (Porudzbina porudzbina : svePorudzbine) {
             Set<Artikal> artikli = (porudzbina.getArtikli());
-            Set<Artikal> updatedArtikli = (artikli);
+            Set<Artikal> updatedArtikli = new HashSet<>(artikli);
             for (Artikal artikal: artikli) {
                 if (artikal.getId() == id) {
                     updatedArtikli.remove(artikal);
