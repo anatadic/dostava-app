@@ -21,6 +21,14 @@ public class Menadzer extends Korisnik implements Serializable {
         this.restoran = restoran;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Restoran getRestoran() {
         return restoran;
     }

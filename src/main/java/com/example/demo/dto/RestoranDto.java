@@ -12,7 +12,7 @@ public class RestoranDto {
 
     private String tipRestorana;
 
-    private Long lokacijaId;
+    private String lokacija;
 
     private List<Komentar> komentari;
 
@@ -23,11 +23,11 @@ public class RestoranDto {
     public RestoranDto() {
     }
 
-    public RestoranDto(String naziv, String tipRestorana, String status, Long lokacijaId, List<Komentar> komentari, Set<Artikal> artikli) {
+    public RestoranDto(String naziv, String tipRestorana, String status, String lokacija, List<Komentar> komentari, Set<Artikal> artikli) {
         this.naziv = naziv;
         this.tipRestorana = tipRestorana;
         this.status = status;
-        this.lokacijaId = lokacijaId;
+        this.lokacija = lokacija;
         this.komentari = komentari;
         this.artikli = artikli;
     }
@@ -56,12 +56,12 @@ public class RestoranDto {
         this.status = status;
     }
 
-    public Long getLokacijaId() {
-        return lokacijaId;
+    public String getLokacija() {
+        return lokacija;
     }
 
-    public void setLokacijaId(Long lokacijaId) {
-        this.lokacijaId = lokacijaId;
+    public void setLokacija(String lokacija) {
+        this.lokacija = lokacija;
     }
 
     public List<Komentar> getKomentari() {

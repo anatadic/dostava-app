@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.Porudzbina;
 import com.example.demo.entity.Restoran;
 import com.example.demo.repository.RestoranRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,16 +31,7 @@ public class RestoranService {
         return restoranRepository.findAll();
     }
 
-    public Restoran getByNaziv(String naziv) {
-        return restoranRepository.getByNaziv(naziv);
+    public List<Restoran> findByNazivAndTipAndLokacija(String naziv, String tip, String lokacija) {
+        return restoranRepository.findByNazivAndTipAndLokacija(naziv, tip, lokacija);
     }
-
-    public List<Restoran> getByTip(String tip) {
-        return restoranRepository.getByTipRestorana(tip);
-    }
-
-    public Restoran getByLokacija(Long lokacijaId) {
-        return restoranRepository.getByLokacijaId(lokacijaId);
-    }
-
 }

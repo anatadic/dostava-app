@@ -27,7 +27,7 @@ public class KorisnikRestController {
     private KorisnikService korisnikService;
 
     @PostMapping("/api/register")
-    public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
+    public ResponseEntity<String> register(@RequestBody RegisterDto registerDto, HttpSession session) {
 
         if (registerDto.getKorisnickoIme().isEmpty() || registerDto.getLozinka().isEmpty()
                 || registerDto.getIme().isEmpty() || registerDto.getPrezime().isEmpty() ||
@@ -37,6 +37,22 @@ public class KorisnikRestController {
 
         if (korisnikService.getByKorisnickoIme(registerDto.getKorisnickoIme()) != null) {
             return new ResponseEntity("Korisnicko ime vec postoji", HttpStatus.BAD_REQUEST);
+        }
+
+        if(registerDto.getUloga() != null && registerDto.getUloga().equals(String.valueOf(UlogaEnum.ADMIN))) {
+            return new ResponseEntity("Nije moguce kreirati korisnika sa unesenom rolom", HttpStatus.BAD_REQUEST);
+        }
+
+        if(registerDto.getUloga() != null && (registerDto.getUloga().equals(String.valueOf(UlogaEnum.MENADZER)) ||
+                registerDto.getUloga().equals(String.valueOf(UlogaEnum.DOSTAVLJAC)))) {
+            Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
+            if(korisnik == null) {
+                return new ResponseEntity("Samo administratori mogu kreirati menadzere i dostavljace!", HttpStatus.BAD_REQUEST);
+            }
+
+            if(!korisnik.getUloga().toString().equals(String.valueOf(UlogaEnum.ADMIN))) {
+                return new ResponseEntity("Samo administratori mogu kreirati menadzere i dostavljace!", HttpStatus.BAD_REQUEST);
+            }
         }
 
         String uloga;
@@ -71,7 +87,7 @@ public class KorisnikRestController {
     }
 
     @PostMapping("/api/login")
-    public ResponseEntity<String> login(@RequestBody LoginDto loginDto, HttpSession session) {
+    public ResponseEntity login(@RequestBody LoginDto loginDto, HttpSession session) {
 
         if (loginDto.getKorisnickoIme().isEmpty() || loginDto.getLozinka().isEmpty()) {
             return new ResponseEntity("Neispravno uneti podaci", HttpStatus.BAD_REQUEST);
@@ -84,13 +100,16 @@ public class KorisnikRestController {
         }
 
         session.setAttribute("korisnik", loggedKorisnik);
-        return ResponseEntity.ok("Uspesno logovanje!");
+        return ResponseEntity.ok(loggedKorisnik);
     }
 
     @GetMapping("/api/korisnici/{id}")
-    public Korisnik getKorisnik(@PathVariable(name = "id") Long id, HttpSession session) {
+    public ResponseEntity getKorisnik(@PathVariable(name = "id") Long id, HttpSession session) {
         Korisnik korisnik = (Korisnik) session.getAttribute("korisnik");
-        return korisnikService.findOne(id);
+        if(korisnik == null) {
+            return new ResponseEntity<>("Nema sesije!", HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.ok(korisnikService.findOne(id));
     }
 
     @GetMapping("/api/korisnici")
@@ -100,6 +119,11 @@ public class KorisnikRestController {
         Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
         if (loggedKorisnik == null) {
             System.out.println("Nema sesije");
+            return new ResponseEntity("Morate biti ulogovani", HttpStatus.BAD_REQUEST);
+        }
+
+        if(!loggedKorisnik.getUloga().toString().equals(String.valueOf(UlogaEnum.ADMIN))) {
+            return new ResponseEntity("Nije dozvoljen pristup ovim podacima", HttpStatus.BAD_REQUEST);
         }
 
         List<KorisnikDto> dtos = new ArrayList<>();
@@ -115,13 +139,32 @@ public class KorisnikRestController {
     @PutMapping("/api/korisnik/edit")
     public String editKorisnik(@RequestBody Korisnik korisnik) {
         Korisnik editKorisnik = korisnikService.getByKorisnickoIme(korisnik.getKorisnickoIme());
-        editKorisnik.setIme(korisnik.getIme());
-        editKorisnik.setPrezime(korisnik.getPrezime());
-        editKorisnik.setDatumRodjenja(korisnik.getDatumRodjenja());
-        editKorisnik.setLozinka(korisnik.getLozinka());
-        editKorisnik.setPol(korisnik.getPol());
+
+        if(!korisnik.getIme().isEmpty()) {
+            editKorisnik.setIme(korisnik.getIme());
+        }
+
+        if(!korisnik.getPrezime().isEmpty()) {
+            editKorisnik.setPrezime(korisnik.getPrezime());
+        }
+
+        if(!korisnik.getDatumRodjenja().toString().isEmpty()) {
+            editKorisnik.setDatumRodjenja(korisnik.getDatumRodjenja());
+        }
+
+        if(!korisnik.getLozinka().isEmpty()) {
+            editKorisnik.setLozinka(korisnik.getLozinka());
+        }
+
         this.korisnikService.save(editKorisnik);
         return "Uspesno sacuvan korisnik!";
+    }
+
+
+    @GetMapping("/api/logout")
+    public ResponseEntity logout(HttpSession session){
+        session.invalidate();
+        return ResponseEntity.ok("Uspesno ste se izlogovali");
     }
 
 }

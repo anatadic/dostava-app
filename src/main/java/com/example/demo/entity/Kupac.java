@@ -33,6 +33,14 @@ public class Kupac extends Korisnik implements Serializable {
         this.tipKupca = tipKupca;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Set<Porudzbina> getSvePorudzbine() {
         return svePorudzbine;
     }

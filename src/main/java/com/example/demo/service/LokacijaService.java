@@ -13,11 +13,11 @@ public class LokacijaService {
     @Autowired
     LokacijaRepository lokacijaRepository;
 
-    public Lokacija getLokacijaById(Long id) {
-        Optional<Lokacija> lokacija = lokacijaRepository.findById(id);
-        if (lokacija.isPresent())
-            return lokacija.get();
+    public Lokacija getLokacijaByAdresa(String adresa) {
+        return lokacijaRepository.getByAdresa(adresa);
+    }
 
-        return null;
+    public void saveLokacija(Lokacija lokacija) {
+        lokacijaRepository.save(lokacija);
     }
 }
