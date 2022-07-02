@@ -22,6 +22,14 @@ public class Dostavljac extends Korisnik implements Serializable {
         super(korisnickoIme, lozinka, ime, prezime, pol, datumRodjenja, uloga);
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Set<Porudzbina> getPorudzbine() {
         return porudzbine;
     }
