@@ -1,0 +1,40 @@
+
+.container-korisnici {
+  display: flex;
+  justify-content: center;
+}
+
+#korisnici th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: rgb(74, 119, 226);
+  color: white;
+}
+
+#korisnici td,
+#korisnici th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+#korisnici tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#korisnici tr:hover {
+  background-color: #ddd;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  margin: auto;
+  text-align: center;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
