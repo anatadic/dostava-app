@@ -34,7 +34,7 @@ public class PorudzbinaRestController {
             return new ResponseEntity("Sesija ne postoji", HttpStatus.FORBIDDEN);
         }
         if (!korisnik.getUloga().toString().equals(String.valueOf(UlogaEnum.MENADZER))) {
-            return new ResponseEntity("Sesija ne postoji", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Nije dozvoljen pristup podacima!", HttpStatus.BAD_REQUEST);
         }
         List<Porudzbina> porudzbine = porudzbinaService.getPorudzbineByRestoran(id);
         return ResponseEntity.ok(porudzbine);
