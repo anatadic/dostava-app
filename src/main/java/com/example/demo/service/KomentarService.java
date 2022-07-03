@@ -16,4 +16,8 @@ public class KomentarService {
     public List<Komentar> getAllByRestoranId(Long restoranId) {
         return komentarRepository.getByRestoranId(restoranId);
     }
+
+    public void deleteKomentar(Komentar komentar) {
+        komentarRepository.delete(komentar);
+    }
 }
