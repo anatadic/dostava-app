@@ -3,8 +3,10 @@ package com.example.demo.controller;
 import com.example.demo.dto.KorisnikDto;
 import com.example.demo.dto.LoginDto;
 import com.example.demo.dto.RegisterDto;
+import com.example.demo.dto.RestoranDto;
 import com.example.demo.entity.Korisnik;
 import com.example.demo.entity.PolEnum;
+import com.example.demo.entity.Restoran;
 import com.example.demo.entity.UlogaEnum;
 import com.example.demo.service.KorisnikService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -165,6 +167,12 @@ public class KorisnikRestController {
     public ResponseEntity logout(HttpSession session){
         session.invalidate();
         return ResponseEntity.ok("Uspesno ste se izlogovali");
+    }
+
+    @PostMapping("/api/korisnici/pretraga")
+    public ResponseEntity<List<Korisnik>> getByImePrezimeKorisnickoIme(@RequestBody KorisnikDto korisnikDto) {
+        List<Korisnik> korisnik = korisnikService.findByImePrezimeKorisnickoIme(korisnikDto.getIme(), korisnikDto.getPrezime(), korisnikDto.getKorisnickoIme());
+        return ResponseEntity.ok(korisnik);
     }
 
 }

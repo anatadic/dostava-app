@@ -2,17 +2,13 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.RestoranDto;
 import com.example.demo.entity.*;
-import com.example.demo.service.KomentarService;
-import com.example.demo.service.KorisnikService;
-import com.example.demo.service.LokacijaService;
-import com.example.demo.service.RestoranService;
+import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -22,10 +18,16 @@ public class RestoranRestController {
     private RestoranService restoranService;
 
     @Autowired
+    private MenadzerService menadzerService;
+
+    @Autowired
+    PorudzbinaService porudzbinaService;
+
+    @Autowired
     LokacijaService lokacijaService;
 
     @Autowired
-    KorisnikService korisnikService;
+    ArtikalService artikalService;
 
     @Autowired
     KomentarService komentarService;
@@ -98,5 +100,43 @@ public class RestoranRestController {
     public ResponseEntity<List<Restoran>> getByNazivTipLokacija(@RequestBody RestoranDto restoranDto) {
         List<Restoran> restoran = restoranService.findByNazivAndTipAndLokacija(restoranDto.getNaziv(), restoranDto.getTipRestorana(), restoranDto.getLokacija());
         return ResponseEntity.ok(restoran);
+    }
+
+    @DeleteMapping("/api/restoran/delete/{id}")
+    public ResponseEntity deleteRestoran(@PathVariable Long id) {
+        Restoran restoran = restoranService.findOne(id);
+        restoran.setArtikli(null);
+
+        List<Artikal> artikalList = artikalService.findByRestoran(id);
+
+        for(Artikal artikal: artikalList) {
+            artikal.setRestoran(null);
+            artikalService.saveArtikal(artikal);
+        }
+
+        List<Komentar> komentarList = komentarService.getAllByRestoranId(id);
+
+        for(Komentar komentar: komentarList) {
+            komentar.setRestoran(null);
+            komentarService.deleteKomentar(komentar);
+        }
+
+        List<Menadzer> menadzerList = menadzerService.findAllByRestoran(id);
+
+        for(Menadzer menadzer: menadzerList) {
+            menadzer.setRestoran(null);
+            menadzerService.saveMenadzer(menadzer);
+        }
+        List<Porudzbina> porudzbinaList = porudzbinaService.getPorudzbineByRestoran(id);
+
+        for(Porudzbina porudzbina: porudzbinaList) {
+            porudzbina.setRestoran(null);
+            porudzbinaService.savePorudzbina(porudzbina);
+        }
+
+
+        restoranService.saveRestoran(restoran);
+        restoranService.deleteRestoran(restoran);
+        return ResponseEntity.ok("Uspesno obrisan restoran");
     }
 }

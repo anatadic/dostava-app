@@ -34,4 +34,8 @@ public class RestoranService {
     public List<Restoran> findByNazivAndTipAndLokacija(String naziv, String tip, String lokacija) {
         return restoranRepository.findByNazivAndTipAndLokacija(naziv, tip, lokacija);
     }
+
+    public void deleteRestoran(Restoran restoran) {
+        restoranRepository.delete(restoran);
+    }
 }
