@@ -11,6 +11,7 @@ import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Configuration
 public class DatabaseConfiguration {
 
@@ -200,6 +201,16 @@ public class DatabaseConfiguration {
         porudzbina.setDostavljac(dostavljac);
         porudzbina.setArtikli(artikli);
         porudzbinaRepository.save(porudzbina);
+
+        Porudzbina porudzbina2 = new Porudzbina();
+        porudzbina2.setCena(artikal.getCena() + artikal2.getCena());
+        porudzbina2.setStatus(StatusPorudzbineEnum.CEKA_DOSTAVLJACA);
+        porudzbina2.setDatumIVreme(new Date());
+        porudzbina2.setKupac(kupac);
+        porudzbina2.setRestoran(restoran2);
+        porudzbina2.setDostavljac(dostavljac);
+        porudzbina2.setArtikli(artikli);
+        porudzbinaRepository.save(porudzbina2);
 
         Set<Porudzbina> svePorudzbine = new HashSet<>();
         svePorudzbine.add(porudzbina);
