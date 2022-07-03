@@ -103,7 +103,18 @@ public class RestoranRestController {
     }
 
     @DeleteMapping("/api/restoran/delete/{id}")
-    public ResponseEntity deleteRestoran(@PathVariable Long id) {
+    public ResponseEntity deleteRestoran(@PathVariable Long id, HttpSession session) {
+
+        Korisnik loggedKorisnik = (Korisnik) session.getAttribute("korisnik");
+        if (loggedKorisnik == null) {
+            System.out.println("Nema sesije");
+            return new ResponseEntity("Morate biti ulogovani", HttpStatus.BAD_REQUEST);
+        }
+
+        if(!loggedKorisnik.getUloga().toString().equals(String.valueOf(UlogaEnum.ADMIN))) {
+            return new ResponseEntity("Nije dozvoljeno izvrsiti ovu akciju.", HttpStatus.BAD_REQUEST);
+        }
+
         Restoran restoran = restoranService.findOne(id);
         restoran.setArtikli(null);
 
