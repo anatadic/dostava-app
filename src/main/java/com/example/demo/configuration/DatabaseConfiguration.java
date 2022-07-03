@@ -60,6 +60,32 @@ public class DatabaseConfiguration {
         restoran.setLokacija(lokacija);
         restoranRepository.save(restoran);
 
+        Lokacija lokacija2 = new Lokacija();
+        lokacija2.setGeografskaDuzina(45.539);
+        lokacija2.setGeografskaSirina(19.423);
+        lokacija2.setAdresa("Pavla Papa 15/2");
+        lokacijaRepository.save(lokacija2);
+
+        Restoran restoran2 = new Restoran();
+        restoran2.setNaziv("Viva");
+        restoran2.setTipRestorana("Tajlandski restoran");
+        restoran2.setStatus(RestoranStatusEnum.RADI);
+        restoran2.setLokacija(lokacija2);
+        restoranRepository.save(restoran2);
+
+        Lokacija lokacija3 = new Lokacija();
+        lokacija3.setGeografskaDuzina(44.284);
+        lokacija3.setGeografskaSirina(20.465);
+        lokacija3.setAdresa("Branka Bajica 72");
+        lokacijaRepository.save(lokacija3);
+
+        Restoran restoran3 = new Restoran();
+        restoran3.setNaziv("Sarmica");
+        restoran3.setTipRestorana("Srpski restoran");
+        restoran3.setStatus(RestoranStatusEnum.RADI);
+        restoran3.setLokacija(lokacija3);
+        restoranRepository.save(restoran3);
+
         Artikal artikal = new Artikal();
         artikal.setNaziv("UDON XL");
         artikal.setCena(890);
@@ -77,6 +103,24 @@ public class DatabaseConfiguration {
         artikal2.setOpis("Ljuto zacinjena salata sa tofu sirom");
         artikal2.setRestoran(restoran);
         artikalRepository.save(artikal2);
+
+        Artikal artikal3 = new Artikal();
+        artikal3.setNaziv("Pad Thai");
+        artikal3.setCena(1430);
+        artikal3.setTip(TipArtiklaEnum.JELO);
+        artikal3.setKolicina(2);
+        artikal3.setOpis("Testo sa mesom ili plodovima more, zacinjeno kikirikijem i tofu sirom.");
+        artikal3.setRestoran(restoran2);
+        artikalRepository.save(artikal3);
+
+        Artikal artikal4 = new Artikal();
+        artikal4.setNaziv("Tavce na gravce");
+        artikal4.setCena(360);
+        artikal4.setTip(TipArtiklaEnum.JELO);
+        artikal4.setKolicina(70);
+        artikal4.setOpis("Domaci srpski pasulj sa dimljenim rebrima");
+        artikal4.setRestoran(restoran3);
+        artikalRepository.save(artikal4);
 
         TipKupca tipKupca = new TipKupca();
         tipKupca.setIme(TipKupcaEnum.BRONZANI);
@@ -169,6 +213,19 @@ public class DatabaseConfiguration {
         komentar.setTekst("Odlicna hrana, brza dostava. Svaka preporuka!");
         komentarRepository.save(komentar);
 
+        Komentar komentar2 = new Komentar();
+        komentar2.setKupac(kupac);
+        komentar2.setRestoran(restoran2);
+        komentar2.setOcena(10);
+        komentar2.setTekst("Inovativno i originalno, hrana preukusna!");
+        komentarRepository.save(komentar2);
+
+        Komentar komentar3 = new Komentar();
+        komentar3.setKupac(kupac);
+        komentar3.setRestoran(restoran3);
+        komentar3.setOcena(10);
+        komentar3.setTekst("Ljubaznost zaposlenih, savrsen ukus i prijatna atmosfera");
+        komentarRepository.save(komentar3);
         return true;
     }
 }
