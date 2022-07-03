@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Porudzbina;
+
 import com.example.demo.entity.Restoran;
 import com.example.demo.repository.RestoranRepository;
 import org.springframework.beans.factory.annotation.Autowired;
