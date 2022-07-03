@@ -17,7 +17,9 @@ public class Restoran implements Serializable {
 
     private String tipRestorana;
 
+    @Enumerated(EnumType.STRING)
     private RestoranStatusEnum status;
+
 
     @OneToMany(mappedBy = "restoran", cascade = CascadeType.ALL)
     @JsonIgnore
