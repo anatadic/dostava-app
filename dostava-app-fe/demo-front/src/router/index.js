@@ -4,6 +4,7 @@ import RegisterView from '../views/RegisterView.vue'
 import LoginView from '../views/LoginView.vue'
 import KupacView from '../views/korisnik/KupacView'
 import KupacProfileView from '../views/korisnik/KupacProfileView'
+import KupacPorudzbineView from '../views/korisnik/KupacPorudzbineView'
 import AdminView from '../views/admin/AdminView.vue'
 import CreateKorisnikView from '../views/admin/CreateKorisnikView.vue'
 import CreateRestoranView from '../views/admin/CreateRestoranView.vue'
@@ -11,7 +12,9 @@ import KorisniciView from '../views/admin/KorisniciView.vue'
 import MenadzerView from '../views/menadzer/MenadzerView.vue'
 import MenadzerRestoraniView from '../views/menadzer/MenadzerRestoraniView'
 import MenadzerPorudzbineView from '../views/menadzer/MenadzerPorudzbineView'
-import DostavljacView from '../views/DostavljacView.vue'
+import DostavljacView from '../views/dostavljac/DostavljacView.vue'
+import DostavljacPorudzbineView from '../views/dostavljac/DostavljacPorudzbineView'
+import DostavljacPorudzbineCekaView from '../views/dostavljac/DostavljacPorudzbineCekaView'
 import RestoraniView from '../views/RestoraniView.vue'
 import RestoranView from '../views/RestoranView.vue'
 
@@ -62,6 +65,11 @@ const routes = [
     component: KupacProfileView
   },
   {
+    path: '/kupac/porudzbine/:id',
+    name: 'kupac-porudzbine-view',
+    component: KupacPorudzbineView
+  },
+  {
     path: '/menadzer-view/:id',
     name: 'menadzer-view',
     component: MenadzerView
@@ -80,6 +88,16 @@ const routes = [
     path: '/dostavljac-view/:id',
     name: 'dostavljac-view',
     component: DostavljacView
+  },
+  {
+    path: '/dostavljac/porudzbine/:id',
+    name: 'dostavljac-porudzbine-view',
+    component: DostavljacPorudzbineView
+  },
+  {
+    path: '/dostavljac/porudzbine/ceka/:id',
+    name: 'dostavljac-porudzbine-ceka-view',
+    component: DostavljacPorudzbineCekaView
   },
   {
     path: '/admin/create-korisnik',
