@@ -1,6 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.entity.Korisnik;
+
 import com.example.demo.entity.Menadzer;
 import com.example.demo.repository.MenadzerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
