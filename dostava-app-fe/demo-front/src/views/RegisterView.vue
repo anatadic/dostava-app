@@ -51,7 +51,7 @@ export default {
       axios
         .post("http://localhost:8080/api/register", this.korisnik, {withCredentials: true})
         .then((res) => {
-          this.$router.push("/user-view");
+          this.$router.push("/login");
         })
         .catch((err) => {
           alert(err.response.data);
