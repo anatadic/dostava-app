@@ -9,7 +9,7 @@
     <div class="list">
       <h3>Artikli:</h3>
       <div v-for="artikal in restoran.artikli">
-        <p>{{ artikal.naziv }} - {{ artikal.cena }} dinara</p>
+        <p>{{ artikal.naziv }} - {{ artikal.cena }} dinara - {{ artikal.opis }} </p>
         <br />
       </div>
     </div>
