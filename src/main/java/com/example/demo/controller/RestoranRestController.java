@@ -80,7 +80,7 @@ public class RestoranRestController {
         RestoranDto restoranDto = new RestoranDto();
         restoranDto.setNaziv(restoran.getNaziv());
         restoranDto.setTipRestorana(restoran.getTipRestorana());
-        if(restoranDto.getStatus() != null) {
+        if(restoran.getStatus() != null) {
             restoranDto.setStatus(restoran.getStatus().toString());
         }
         restoranDto.setLokacija(restoran.getLokacija().getAdresa());
